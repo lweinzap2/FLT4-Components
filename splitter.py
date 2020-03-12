@@ -29,7 +29,7 @@ def create_routing(env, first_step='move15'):
         },
 
         'move16': {
-            'location': env['assembler'],
+            'location': env['assembly_bench'],
             # is this the right location to have the move take place from?
             'worker': env['production_control'],
             'manned': True,
@@ -70,7 +70,7 @@ def create_routing(env, first_step='move15'):
             'yield': 94.23,
             'route_to_pass': env['splitter_kanban'],
             'route_to_fail': 'op17_debug'
-        }
+        },
 
         'op17_debug': {
             'location': env['VSWR_CTI'],
@@ -89,6 +89,6 @@ def create_routing(env, first_step='move15'):
 
 
 def create_kanban_attrs(env):
-    return misc_tools.make_kanban_attrs(order_gen=env['gener.splitter_attempt'],
+    return misc_tools.make_kanban_attrs(order_gen=env['gener.splitter'],
                                         order_point=2, order_qty=5,
                                         init_qty=5, warmup_time=0)

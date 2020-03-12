@@ -1,86 +1,121 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import misc_tools\n",
-    "import random\n",
-    "\n",
-    "def create_routing(env, first_step = 'op_10'):\n",
-    "    \n",
-    "    tasks = {\n",
-    "        'op_10': { # I think this step is wrong? Vsdx file says this is assembly, but it's called 'multiplixer debug'\n",
-    "            'location': env['assembly_bench'],\n",
-    "            'worker': env['technician'],\n",
-    "            'manned': True,\n",
-    "            'run_time': ,\n",
-    "            'setup_time': 0.5,\n",
-    "            'teardown_time': 0.5,\n",
-    "            'transit_time': 0,\n",
-    "            'route_to': 'op_11'\n",
-    "        }\n",
-    "        'op_11': { # not sure if the location is correct here, step is called \"Inspect SIP\"\n",
-    "            'location': env['assembly_bench'],\n",
-    "            'worker': env['inspection'],\n",
-    "            'manned': True,\n",
-    "            'setup_time': 1,\n",
-    "            'run_time': random.gauss(mu=1, sigma=0.1),\n",
-    "            'teardown_time': 1,\n",
-    "            'transit_time': 1, # do we need transit_time if we have a move step?\n",
-    "            'route_to': 'move11'\n",
-    "        }\n",
-    "        'move11'{\n",
-    "            'location': env[''],\n",
-    "            'worker': 'prod_control',\n",
-    "            'manned': True,\n",
-    "            'setup_time': 0,\n",
-    "            'run_time': 1,\n",
-    "            'teardown_time': 0,\n",
-    "            'route_to': 'op_13'\n",
-    "        }\n",
-    "        'op_13': { # worker is \"automated optical inspection\"?\n",
-    "            'location': env['BFPD_CTI'],\n",
-    "            'manned': False,\n",
-    "            'setup_time': 0,\n",
-    "            'run_time': 1,\n",
-    "            'route_to': 'op_23'\n",
-    "        }\n",
-    "        \n",
-    "        return misc_tools.make_steps(first_step=first_step, tasks=tasks)\n",
-    "    }\n",
-    "\n",
-    "def create_kanban_attrs(env):\n",
-    "\n",
-    "    # Quantities need to be assigned here, this is just copied from part_a.py in Jack's example\n",
-    "    \n",
-    "    return misc_tools.make_kanban_attrs(order_gen=env['gener.BFPD'],\n",
-    "                                        order_point=2, order_qty=5,\n",
-    "                                        init_qty=5, warmup_time=0)"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.8.1"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+import misc_tools
+import random
+
+def create_routing(env, first_step='move10'):
+
+
+## if you have a problem with one of the values,
+## just update outside of the tasks dictionary for now
+	tasks = {
+
+        'move10': {
+            'location': env['bfpd_storage'],
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op10'
+        },
+        
+        'op10': {
+        	'location': env['assembly_bench'],
+        	'worker': env['assembler'],
+        	'manned': True,
+        	'setup_time': 5,
+        	'run_time': 10,
+        	'teardown_time': 5,
+        	'transit_time': 0,
+        	'route_to': 'move11'
+        },
+
+        'move11': {
+            'location': env['assembly_bench'], #how do we make sure this is the same assembly bench
+                                               #that the last operation left off from?
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op11'
+        },
+
+        'op11': {
+        # is this appropriate? Because the excel doc doesn't have information on who does the step
+            'location': env['assembly_bench'],
+            'worker': env['assembler'],
+            'manned': False,
+            'setup_time': 1,
+            'run_time': 5,
+            'teardown_time': 1,
+            'transit_time': 0,
+            'route_to': 'move13'
+        },
+
+        'move13': {
+            'location': env['assembly_bench'], #how do we make sure this is the same assembly bench
+                                               #that the last operation left off from?
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op13'
+        },
+
+        'op13': {
+            'location': env['BFPD_CTI'],
+            'worker': env['technician'],
+            'manned': True,
+            'setup_time': .5,
+            'run_time': 4,
+            'teardown_time': .5,
+            'transit_time': 0,
+            'yield': .9423,
+            'route_to_pass': env['bfpd_kanban'],
+            'route_to_fail': 'move14'
+        },
+
+        'move14': {
+            'location': env['BFPD_CTI'], 
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op14'
+        },
+
+        'op14': {
+        # check back to excel doc: this doesn't exactly agree with the number provided.
+        # do we need to add another rework within operation 14??
+        # also, op14 is not in the diagram, what are the implications of that?
+            'location': env['BFPD_CTI-DBG'],
+            'worker': env['technician'],
+            'manned': True,
+            'setup_time': 0.5,
+            'run_time': random.uniform(a=60,b=200),
+            'teardown_time': 0.5,
+            'transit_time': 0,
+            'route_to': env['bfpd_kanban']
+        }
+  
+	    
+    }
+
+    return misc_tools.make_steps(first_step=first_step, tasks=tasks)
+
+def create_kanban_attrs(env):
+
+	return misc_tools.make_kanban_attrs(order_gen=env['gener.bfpd'],
+										order_point=20, order_qty=50,
+										init_qty=50, warmup_time=0)
+    # what are the details of this specific kanban?order point, order quantity, etc.
+    # because I just made mine up
+
+
+	

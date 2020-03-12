@@ -1,20 +1,30 @@
 import misc_tools
 import random
 
-def create_routing(env, first_step='op5'):
+def create_routing(env, first_step='move5'):
 
 
 ## if you have a problem with one of the values,
 ## just update outside of the tasks dictionary for now
 	tasks = {
 	
-		# note: op5 has move time, but this has not been allocated
-		# to the PC yet, it is all done by quality controller
+        'move5': {
+            'location': env['optx_storage'],
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op5'
+        },
+
         'op5': misc_tools.make_quality_step(
         	env=env,
         	run_time=1,
         	route_to='op7'
-        	)
+        	),
+
         'op7': {
         	'location': env['assembly_bench'],
         	'worker': env['assembler'],
@@ -24,7 +34,8 @@ def create_routing(env, first_step='op5'):
         	'teardown_time': 0,
         	'transit_time': 0,
         	'route_to': 'op8'
-        }
+        },
+
         'op8': {
         	'location': env['common_process'],
         	'worker': env['technician'],
@@ -35,7 +46,8 @@ def create_routing(env, first_step='op5'):
         	'teardown_time': 0,
         	'transit_time': 0,
         	'route_to': 'op9'
-        }
+        },
+
         'op9': {
         	'location': env['common_process'],
         	'worker': env['technician'],

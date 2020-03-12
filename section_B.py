@@ -62,7 +62,7 @@ def get_bom(env):
         # ensure that the other folks called these bfpd and splitter
             'location': env['bfpd_kanban'],
             'qty': 1
-        }
+        },
         'splitter': {
             'location': env['splitter_kanban'],
             'qty': 1
