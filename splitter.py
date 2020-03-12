@@ -6,7 +6,7 @@ def create_routing(env, first_step='move15'):
     tasks = {
 
         'move15': {
-            'location': env['section_A_kanban'],
+            'location': env['splitter_storage'],
             # is this the right location to have the move take place from?
             'worker': env['production_control'],
             'manned': True,
@@ -77,7 +77,7 @@ def create_routing(env, first_step='move15'):
             'worker': env['technician'],
             'manned': True,
             'setup_time': 0,
-            'run_time': random.uniform(60,200),
+            'run_time': random.uniform(a=60,b=200),
             'teardown_time': 0,
             'transit_time': 0,
             'route_to_': env['splitter_kanban'],

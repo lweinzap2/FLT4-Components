@@ -37,10 +37,11 @@ def create_routing(env, first_step='move5'):
         },
 
         'op8': {
-        	'location': env['common_process'],
+        # is this even the right location and worker combination? Check!
+        	'location': env['assembly_bench'],
         	'worker': env['technician'],
             # this step is an unmanned step --> update appropriately!!
-        	'manned': True,
+        	'manned': False,
         	'setup_time': 0,
         	'run_time': 1,
         	'teardown_time': 0,
@@ -49,7 +50,7 @@ def create_routing(env, first_step='move5'):
         },
 
         'op9': {
-        	'location': env['common_process'],
+        	'location': env['OPTX_CTI'],
         	'worker': env['technician'],
         	'manned': True,
         	'setup_time': 5,

@@ -6,6 +6,8 @@ import random
 def create_routing(env, first_step='op26'):
 
     tasks = {
+
+    # Does the first step here need to be a move step to approximate the different pieces coming together?
         'op26': {
             'location': env['assembly_bench'],
             'worker': env['assembler'],

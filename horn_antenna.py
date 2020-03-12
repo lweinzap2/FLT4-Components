@@ -1,13 +1,27 @@
 import misc_tools
 import random
 
-def create_routing(env, first_step='op18'):
+def create_routing(env, first_step='move18'):
 
 	tasks={
+		# I added this move step in to create a place for the horn antenna to arrive
+		# but do we need to take out to stay true to the Excel doc?
+		'move18': {
+            'location': env['horn_atenna_storage'],
+            # is this the right location to have the move take place from?
+            'worker': env['production_control'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': .1,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': 'op18'
+        },
+
 		'op18': {
 			'location': env['assembly_bench'],
 			'worker': env['assembler'],
-			'manned': manned,
+			'manned': True,
 			'setup_time': 0.66,
 			'run_time': 3.61,
 			'teardown_time': 0.61,
@@ -33,14 +47,14 @@ def create_routing(env, first_step='op18'):
 			'yield': 0.9423,
 			'route_to_fail': 'op20_debug',
 			'route_to_pass': env['horn_antenna_kanban']
-		}
+		},
 
 		'op20_debug': {
 			'location': env['MOD_FEEDASSY_PAT'],
 			'worker': env['technician'],
 			'manned': True,
 			'setup_time': 0,
-			'run_time': unif(60,200),
+			'run_time': random.uniform(a=60,b=200),
 			'teardown_time': 0,
 			'transit_time': 0,
 			'route_to': env['horn_antenna_kanban']
