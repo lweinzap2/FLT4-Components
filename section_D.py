@@ -30,7 +30,7 @@ def create_routing(env, first_step='op29'):
         },
 
         'op31': {
-            'location': env['static_CTI-DBG'],
+            'location': env['static_CTI_DBG'],
             'worker': env['technician'],
             'manned': True,
             'setup_time':0,

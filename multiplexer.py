@@ -14,17 +14,20 @@ def create_routing(env, first_step='move1'):
 			'transit_time': 0,
 			'route_to': 'op1'
 		},
+		
 		'op1': misc_tools.make_assembly_step(
 			env=env,
 			run_time = 3.79,
 			route_to='op2'
 			),
+
 		'op2': misc_tools.make_quality_step(
 			env=env,
 			run_time=0.2,
 			route_to='op3',
 			transit_time=0
 			),
+
 		'op3': {
 			'location': env['VSWR_CTI'],
 			'worker': env['technician'],
@@ -37,8 +40,9 @@ def create_routing(env, first_step='move1'):
 			'route_to_pass': env['multiplexer_kanban'],
 			'route_to_fail': 'op4'
 		},
+
 		'op4': {
-			'location': env['VSWR_CTI-DBG'],
+			'location': env['VSWR_CTI_DBG'],
 			'worker': env['technician'],
 			'manned': True,
 			'setup_time': 0.5,

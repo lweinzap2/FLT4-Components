@@ -94,7 +94,7 @@ def create_routing(env, first_step='move10'):
         # check back to excel doc: this doesn't exactly agree with the number provided.
         # do we need to add another rework within operation 14??
         # also, op14 is not in the diagram, what are the implications of that?
-            'location': env['BFPD_CTI-DBG'],
+            'location': env['BFPD_CTI_DBG'],
             'worker': env['technician'],
             'manned': True,
             'setup_time': 0.5,
