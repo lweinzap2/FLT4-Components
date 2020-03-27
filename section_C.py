@@ -56,8 +56,8 @@ def get_bom(env):
 def create_kanban_attrs(env):
 
     return misc_tools.make_kanban_attrs(order_gen=env['gener.section_C'],
-        order_point=0, order_qty=0,
-        init_qty=0, warmup_time=0)
+        order_point=30, order_qty=40,
+        init_qty=8, warmup_time=6)
     # what are the details of this specific kanban?order point, order quantity, etc.
     # because I just made mine up
     

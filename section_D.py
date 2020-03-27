@@ -38,7 +38,6 @@ def create_routing(env, first_step='op29'):
             'teardown_time': 0,
             'transit_time': 0,
             'route_to': 'op30'
-
         },
 
 # op30a is just a buffer step to split the jobs that need more processing from the ones that don't
@@ -65,7 +64,7 @@ def create_routing(env, first_step='op29'):
             'teardown_time': 0,
             'transit_time': 0,
             'route_to': 'op32'
-        }
+        },
 
 
         'op32': {
@@ -122,8 +121,8 @@ def get_bom(env):
 def create_kanban_attrs(env):
 
     return misc_tools.make_kanban_attrs(order_gen=env['gener.section_D'],
-        order_point=0, order_qty=0,
-        init_qty=0, warmup_time=0)
+        order_point=5, order_qty=60,
+        init_qty=10, warmup_time=0)
     # what are the details of this specific kanban?order point, order quantity, etc.
     # because I just made mine up
     

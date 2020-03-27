@@ -61,10 +61,11 @@ def create_routing(env, first_step='move18'):
 		}
 		
 	}
+	
 	return misc_tools.make_steps(first_step=first_step, tasks=tasks)
 
 def create_kanban_attrs(env):
 
-	return misc_tools.make_kanban_attrs(order_gen=env['gener.horn_antenna.py'],
+	return misc_tools.make_kanban_attrs(order_gen=env['gener.horn_antenna'],
 		order_point=2, order_qty=5,
 		init_qty=5, warmup_time=0)

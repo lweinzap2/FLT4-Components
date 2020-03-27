@@ -24,7 +24,7 @@ def create_routing(env, first_step='move15'):
             'setup_time': 1,
             'run_time': 5,
             'teardown_time': 1,
-            'transit_time': 1
+            'transit_time': 1,
             'route_to': 'move16'
         },
 
