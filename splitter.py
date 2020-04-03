@@ -6,7 +6,7 @@ def create_routing(env, first_step='move15'):
     tasks = {
 
         'move15': {
-            'location': env['splitter_storage'],
+            'location': env['forklift'], #formerly splitter storage
             # is this the right location to have the move take place from?
             'worker': env['production_control'],
             'manned': True,

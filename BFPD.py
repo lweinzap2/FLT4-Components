@@ -9,7 +9,7 @@ def create_routing(env, first_step='move10'):
 	tasks = {
 
 		'move10': {
-			'location': env['BFPD_storage'],
+			'location': env['forklift'], #formerly BFPD_storage
 			'worker': env['production_control'],
 			'manned': True,
 			'setup_time': 0,
@@ -103,7 +103,6 @@ def create_routing(env, first_step='move10'):
 			'transit_time': 0,
 			'route_to': env['BFPD_kanban']
 		}
-  
 		
 	}
 

@@ -14,6 +14,7 @@ def create_routing(env, first_step='op26'):
             'manned': True,
             'setup_time': 0.3,
             'run_time': 2.81,
+            'transit_time': 0,
             'teardown_time': 0.16,
             'route_to': 'op27'
         },
@@ -23,16 +24,29 @@ def create_routing(env, first_step='op26'):
             'manned': True,
             'setup_time': 0.14,
             'run_time': 1.91,
+            'transit_time': 0,
             'teardown_time': 0,
             'route_to': 'op28'
         },
+        'op28':{
+            'location': env['quality_bench'],
+            'worker': env['qual_inspector'],
+            'manned': True,
+            'setup_time': 0,
+            'run_time': 75,
+            'teardown_time': 0,
+            'transit_time': 0,
+            'route_to': env['section_C_storage']
+        }
 
-        'op28': misc_tools.make_quality_step(
-            env=env,
-            run_time=75,
-            route_to=env['section_C_kanban'],
-            transit_time=0
-            ),
+        
+
+        # 'op28': misc_tools.make_quality_step(
+        #     env=env,
+        #     run_time=75,
+        #     route_to=env['section_C_storage'],
+        #     transit_time=0
+        #     )
 
     }
 
@@ -48,9 +62,10 @@ def get_bom(env):
             'qty': 1
         },
         'antenna_kit': {
-            'location': env['antenna_kit_storage'],
+            'location': env['antenna_kit_kanban'],
             'qty': 1
         }
+
     }
 
 def create_kanban_attrs(env):
@@ -62,4 +77,4 @@ def create_kanban_attrs(env):
     # because I just made mine up
     
 
-	
+    

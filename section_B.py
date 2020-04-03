@@ -7,8 +7,7 @@ def create_routing(env, first_step='move23'):
 
     tasks = {
         'move23': {
-            'location': env['section_A_kanban'],
-            # is this the right location to have the move take place from?
+            'location': env['forklift'], #formerly section_A_kanban
             'worker': env['production_control'],
             'manned': True,
             'setup_time': 0,
@@ -23,6 +22,7 @@ def create_routing(env, first_step='move23'):
             'manned': True,
             'setup_time': 0.04,
             'run_time': 0.64,
+            'transit_time': 0,
             'teardown_time': 0.03,
             'route_to': 'op24'
         },
@@ -33,6 +33,7 @@ def create_routing(env, first_step='move23'):
             'setup_time': 0.16,
             'run_time': 1.65,
             'teardown_time': 0.12,
+            'transit_time': 0,
             'route_to': 'op25'
         },
         'op25': {
@@ -41,9 +42,11 @@ def create_routing(env, first_step='move23'):
             'manned': True,
             'setup_time': 0.04,
             'run_time': 0.58,
+            'transit_time': 0,
             'teardown_time': 0.03,
             'route_to': env['section_B_kanban']
-        },
+            #'route_to': env['section_B_storage']
+        }
 
     }
 
@@ -73,7 +76,7 @@ def create_kanban_attrs(env):
 
     return misc_tools.make_kanban_attrs(order_gen=env['gener.section_B'],
         order_point=10, order_qty=10,
-        init_qty=3, warmup_time=10)
+        init_qty=20, warmup_time=5)
     # what are the details of this specific kanban?order point, order quantity, etc.
     # because I just made mine up
     
