@@ -65,8 +65,7 @@ def create_routing(env, first_step='op29'):
             'teardown_time': 0,
             'transit_time': 0,
             'route_to': 'op32'
-        }
-
+        },
 
         'op32': {
             'location': env['COND_EST'],
