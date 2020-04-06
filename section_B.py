@@ -36,6 +36,7 @@ def create_routing(env, first_step='move23'):
             'transit_time': 0,
             'route_to': 'op25'
         },
+        
         'op25': {
             'location': env['assembly_bench'],
             'worker': env['assembler'],
